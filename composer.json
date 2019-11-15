@@ -1,0 +1,24 @@
+{
+    "name": "seffeng/laravel-basics",
+    "description": "Laravel extension basics",
+    "keywords": ["laravel", "seffeng", "basics"],
+    "license": "MIT",
+    "homepage": "https://github.com/seffeng/laravel-basics",
+    "authors": [
+        {
+            "name": "seffeng",
+            "email": "save.zxf@gmail.com",
+            "homepage": "https://github.com/seffeng"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.3",
+        "laravel/framework" : "5.8.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seffeng\\Basics\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
