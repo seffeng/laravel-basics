@@ -17,6 +17,12 @@ class Controller extends BaseController
 
     /**
      *
+     * @var ErrorConst
+     */
+    protected $errorClass = ErrorConst::class;
+
+    /**
+     *
      * @author zxf
      * @date    2019年11月06日
      * @param  array $data
@@ -25,7 +31,7 @@ class Controller extends BaseController
      */
     public function responseSuccess($data = [], string $message = 'success')
     {
-        return response()->json(ErrorConst::responseSuccess($data, $message));
+        return response()->json($this->errorClass::responseSuccess($data, $message));
     }
 
     /**
@@ -39,7 +45,7 @@ class Controller extends BaseController
      */
     public function responseError(string $message, $data = [], int $code = null)
     {
-        return response()->json(ErrorConst::responseError($message, $data, $code));
+        return response()->json($this->errorClass::responseError($message, $data, $code));
     }
 
     /**
@@ -64,7 +70,7 @@ class Controller extends BaseController
      */
     public function responseException($e)
     {
-        return response()->json(ErrorConst::responseError(ErrorConst::getError(),
+        return response()->json($this->errorClass::responseError($this->errorClass::getError(),
             config('app.debug') ? [
                 'message' => $e->getMessage(),
                 'code' => $e->getCode(),

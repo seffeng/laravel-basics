@@ -62,9 +62,10 @@ class ErrorConst
      * @param int $code
      * @return string
      */
-    public static function getError(int $code = self::DEFAULT)
+    public static function getError(int $code = null)
     {
-        return Arr::get(self::fetchNameItems(), $code, '未定义错误代码：( '. $code .' )！');
+        is_null($code) && $code = static::DEFAULT;
+        return Arr::get(static::fetchNameItems(), $code, '未定义错误代码：( '. $code .' )！');
     }
 
     /**
@@ -76,13 +77,13 @@ class ErrorConst
     public static function fetchNameItems()
     {
         return [
-            self::NOT => '操作成功！',
-            self::DEFAULT => '服务器异常错误！',
-            self::UNAUTHORIZED => '用户未登录！',
-            self::PERMISSION_DENIED => '权限错误！',
-            self::NOT_FOUND => '资源不存在！',
-            self::METHOD_NOT_SUPPORTED => '请求方式不支持！',
-            self::CSRF_MISMATCH => 'CSRF-TOKEN不匹配！',
+            static::NOT => '操作成功！',
+            static::DEFAULT => '服务器异常错误！',
+            static::UNAUTHORIZED => '用户未登录！',
+            static::PERMISSION_DENIED => '权限错误！',
+            static::NOT_FOUND => '资源不存在！',
+            static::METHOD_NOT_SUPPORTED => '请求方式不支持！',
+            static::CSRF_MISMATCH => 'CSRF-TOKEN不匹配！',
         ];
     }
 
@@ -94,7 +95,7 @@ class ErrorConst
      */
     public static function fetchItems()
     {
-        return array_keys(self::fetchNameItems());
+        return array_keys(static::fetchNameItems());
     }
 
     /**
@@ -127,7 +128,7 @@ class ErrorConst
     {
         return [
             'status' => 'error',
-            'code' => is_null($code) ? self::DEFAULT : $code,
+            'code' => is_null($code) ? static::DEFAULT : $code,
             'data' => (is_array($data) && count($data) === 0) ? new \stdClass() : $data,
             'message' => $message,
         ];
