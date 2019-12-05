@@ -19,6 +19,12 @@ class Handler extends ExceptionHandler
     protected $asJson = false;
 
     /**
+     *
+     * @var ErrorConst
+     */
+    protected $errorClass = ErrorConst::class;
+
+    /**
      * A list of the exception types that are not reported.
      *
      * @var array
@@ -70,8 +76,8 @@ class Handler extends ExceptionHandler
     {
         $e = $this->prepareException($e);
 
-        if (($this->asJson || $request->expectsJson()) && $this->isHttpException($e) && in_array($e->getStatusCode(), ErrorConst::fetchItems())) {
-            return new JsonResponse(ErrorConst::responseError(ErrorConst::getError($e->getStatusCode()), ['message' => $e->getMessage()], $e->getStatusCode()));
+        if (($this->asJson || $request->expectsJson()) && $this->isHttpException($e) && in_array($e->getStatusCode(), $this->errorClass::fetchItems())) {
+            return new JsonResponse($this->errorClass::responseError($this->errorClass::getError($e->getStatusCode()), ['message' => $e->getMessage()], $e->getStatusCode()));
         } else {
             return parent::render($request, $e);
         }
