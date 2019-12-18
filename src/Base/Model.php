@@ -119,4 +119,15 @@ class Model extends \Illuminate\Database\Eloquent\Model
     {
         return DB::getQueryLog();
     }
+
+    /**
+     *
+     * @author zxf
+     * @date    2019年12月17日
+     * @return string
+     */
+    public function getTablePrefix()
+    {
+        return $this->getConnection()->getTablePrefix();
+    }
 }
