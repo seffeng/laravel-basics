@@ -42,6 +42,12 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
 
     /**
      *
+     * @var string|array
+     */
+    protected $orderBy;
+
+    /**
+     *
      * @var array
      */
     protected $messageBag;
@@ -139,6 +145,28 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     public function getWith()
     {
         return $this->with;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2020年3月23日
+     * @param array|string $orderBy
+     */
+    public function setOrderBy($orderBy)
+    {
+        $this->orderBy = $orderBy;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2020年3月23日
+     * @return string|array
+     */
+    public function getOrderBy()
+    {
+        return $this->orderBy;
     }
 
     /**
