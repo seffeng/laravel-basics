@@ -27,11 +27,12 @@ class Controller extends BaseController
      * @date    2019年11月06日
      * @param  array $data
      * @param  string $message
+     * @param  array $headers
      * @return \Illuminate\Http\JsonResponse
      */
-    public function responseSuccess($data = [], string $message = 'success')
+    public function responseSuccess($data = [], string $message = 'success', array $headers = [])
     {
-        return response()->json($this->errorClass::responseSuccess($data, $message));
+        return response()->json($this->errorClass::responseSuccess($data, $message), 200, $headers);
     }
 
     /**
@@ -41,11 +42,12 @@ class Controller extends BaseController
      * @param  string $message
      * @param  array $data
      * @param  int $code
+     * @param  array $headers
      * @return \Illuminate\Http\JsonResponse
      */
-    public function responseError(string $message, $data = [], int $code = null)
+    public function responseError(string $message, $data = [], int $code = null, array $headers = [])
     {
-        return response()->json($this->errorClass::responseError($message, $data, $code));
+        return response()->json($this->errorClass::responseError($message, $data, $code), 200, $headers);
     }
 
     /**
@@ -54,11 +56,12 @@ class Controller extends BaseController
      * @date    2019年11月06日
      * @param  mixed $data
      * @param  string $fileName
+     * @param  array $headers
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
-    public function responseDownload($data, string $fileName)
+    public function responseDownload($data, string $fileName, array $headers)
     {
-        return response()->streamDownload(function() use ($data) { echo $data; }, $fileName);
+        return response()->streamDownload(function() use ($data) { echo $data; }, $fileName, $headers);
     }
 
     /**
