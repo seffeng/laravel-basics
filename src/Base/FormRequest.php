@@ -5,7 +5,8 @@
  */
 namespace Seffeng\Basics\Base;
 
-use Illuminate\Support\Arr;
+use Seffeng\Basics\Helpers\Arr;
+
 /**
  *
  * @author zxf

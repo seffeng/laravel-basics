@@ -11,6 +11,44 @@ namespace Seffeng\Basics\Helpers;
 class Arr extends \Illuminate\Support\Arr
 {
     /**
+     *
+     * @author zxf
+     * @date   2020年3月30日
+     * @param  \ArrayAccess|array  $array
+     * @param  string|int|null  $key
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public static function get($array, $key, $default = null)
+    {
+        if (! static::accessible($array)) {
+            return value($default);
+        }
+
+        if (is_null($key)) {
+            return $array;
+        }
+
+        if (static::exists($array, $key)) {
+            return is_null($array[$key]) ? $default : $array[$key];
+        }
+
+        if (strpos($key, '.') === false) {
+            return $array[$key] ?? value($default);
+        }
+
+        foreach (explode('.', $key) as $segment) {
+            if (static::accessible($array) && static::exists($array, $segment)) {
+                $array = $array[$segment];
+            } else {
+                return value($default);
+            }
+        }
+
+        return $array;
+    }
+
+    /**
      * Retrieves the value of an array element or object property with the given key or property name.
      * If the key does not exist in the array or object, the default value will be returned instead.
      *
@@ -63,7 +101,7 @@ class Arr extends \Illuminate\Support\Arr
         }
 
         if (is_array($array) && (isset($array[$key]) || array_key_exists($key, $array)) ) {
-            return $array[$key];
+            return is_null($array[$key]) ? $default : $array[$key];
         }
 
         if (($pos = strrpos($key, '.')) !== false) {
