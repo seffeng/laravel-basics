@@ -6,6 +6,7 @@
 namespace Seffeng\Basics\Base;
 
 use Seffeng\Basics\Helpers\Arr;
+use Illuminate\Support\Str;
 
 /**
  *
@@ -22,6 +23,14 @@ use Seffeng\Basics\Helpers\Arr;
  */
 class FormRequest extends \Illuminate\Foundation\Http\FormRequest
 {
+    /**
+     * fillable 参数格式
+     * true-驼峰，false-下划线
+     * 驼峰参数格式时$fillItems将同时存在驼峰和下划线两种值
+     * @var boolean
+     */
+    protected $isCamel = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -195,10 +204,11 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
      * @author zxf
      * @date    2019年11月06日
      * @param  \Illuminate\Validation\Validator $validator
-     * @param  boolean $isOne
+     * @param  boolean $isOne 仅返回一条错误
+     * @param  boolean $cover $isOne为true时无效，$isOne为false时，存在相同错误是否只显示为一条
      * @return string|null
      */
-    public function getErrorsToString($validator, bool $isOne = false)
+    public function getErrorsToString($validator, bool $isOne = false, bool $cover = false)
     {
         $messages = $this->getErrors($validator);
         if ($messages) {
@@ -208,8 +218,19 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
                 }
             } else {
                 $errors = [];
-                foreach ($messages as $message) {
-                    $errors[] = implode(' ', $message);
+                if ($cover) {
+                    $tmpItems = [];
+                    foreach ($messages as $message) {
+                        $tmpItems = Arr::merge($tmpItems, $message);
+                    }
+                    $tmpItems = array_unique($tmpItems);
+                    foreach ($tmpItems as $message) {
+                        $errors[] = $message;
+                    }
+                } else {
+                    foreach ($messages as $message) {
+                        $errors[] = implode(' ', $message);
+                    }
                 }
                 return implode(' ', $errors);
             }
@@ -222,16 +243,17 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
      * @author zxf
      * @date    2019年11月06日
      * @param  \Illuminate\Validation\Validator $validator
-     * @param  boolean $isOne
+     * @param  boolean $isOne 仅返回一条错误
+     * @param  boolean $cover $isOne为true时无效，$isOne为false时，存在相同错误是否只显示为一条
      * @return array
      */
-    public function getErrorItems($validator, bool $isOne = false)
+    public function getErrorItems($validator, bool $isOne = false, bool $cover = false)
     {
         $messageItems = $this->getErrors($validator);
         if ($messageItems) {
             return [
                 'data' => $messageItems,
-                'message' => $this->getErrorsToString($validator, $isOne)
+                'message' => $this->getErrorsToString($validator, $isOne, $cover)
             ];
         }
         return [];
@@ -247,6 +269,9 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     public function load(array $params)
     {
         if ($this->fillable) foreach ($this->fillable as $key) {
+            if ($this->isCamel) {
+                $this->fillItems[Str::snake($key)] = Arr::get($params, $key);
+            }
             $this->fillItems[$key] = Arr::get($params, $key);
         }
         return $this->fillItems;
