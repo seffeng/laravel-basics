@@ -10,22 +10,27 @@ $ composer require seffeng/laravel-basics
 
 ```
 ├─Base                      基础类
-│      Controller.php           控制器
-│      FormRequest.php          表单验证
-│      Model.php                数据库
-│      Service.php              服务
+│   Controller.php              控制器
+│   FormRequest.php             表单验证
+│   Model.php                   数据库
+│   Service.php                 服务
 ├─Constants                 常量定义
-│      DeleteConst.php          删除
-│      ErrorConst.php           错误
-│      StatusConst.php          状态
-│      TypeConst.php            类型
+│   DeleteConst.php             删除
+│   ErrorConst.php              错误
+│   StatusConst.php             状态
+│   TypeConst.php               类型
 ├─Exceptions                异常
-│      BaseException.php        异常
-│      Handler.php              异常处理器
+│   BaseException.php           异常
+│   Handler.php                 异常处理器
 ├─Helpers                   帮助类
-│      Arr.php                  数组处理
+│   Arr.php                     数组处理
+│   Json.php                    Json处理
+│   ReplaceArrayValue.php
+│   TimeHelper.php              时间处理
+│   UnsetArrayValue.php
 └─Rules                     验证规则
-       Phone.php                手机号
+    Password.php                密码
+    Phone.php                   手机号
 ```
 
 ### 示例
