@@ -339,4 +339,25 @@ class Arr extends \Illuminate\Support\Arr
 
         return $res;
     }
+
+    /**
+     *  获取数组深度
+     * @author zxf
+     * @date    2020年4月26日
+     * @param  array $array
+     * @return number
+     */
+    public static function getDepth(array $array)
+    {
+        $maxDepth = 1;
+        foreach ($array as $value) {
+            if (is_array($value)) {
+                $depth = self::getDepth($value) + 1;
+                if ($depth > $maxDepth) {
+                    $maxDepth = $depth;
+                }
+            }
+        }
+        return $maxDepth;
+    }
 }
