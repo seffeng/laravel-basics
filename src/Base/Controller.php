@@ -17,18 +17,6 @@ class Controller extends BaseController
 
     /**
      *
-     * @var string
-     */
-    protected $perPageName = 'perPage';
-
-    /**
-     *
-     * @var integer
-     */
-    protected $perPage = 10;
-
-    /**
-     *
      * @var ErrorConst
      */
     protected $errorClass = ErrorConst::class;

@@ -69,6 +69,24 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     protected $isPass = false;
 
     /**
+     * 分页参数
+     * @var string
+     */
+    protected $pageName = 'page';
+
+    /**
+     * 分页参数
+     * @var string
+     */
+    protected $perPageName = 'perPage';
+
+    /**
+     * 每页默认数量
+     * @var integer
+     */
+    protected $perPage = 10;
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -330,5 +348,38 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     public function getIsExport()
     {
         return $this->getFillItems('export') == 1;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年05月04日
+     * @return string
+     */
+    public function getPageName()
+    {
+        return $this->pageName;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年05月04日
+     * @return string
+     */
+    public function getPerPageName()
+    {
+        return $this->perPageName;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年05月04日
+     * @return number
+     */
+    public function getPerPage()
+    {
+        return $this->perPage;
     }
 }
