@@ -2,8 +2,12 @@
 
 ### 安装
 
-```
+```shell
+# laravel7
 $ composer require seffeng/laravel-basics
+
+# laravel6
+$ composer require seffeng/laravel-basics=^2.*
 ```
 
 ### 目录说明
