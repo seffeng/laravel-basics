@@ -5,8 +5,8 @@
  */
 namespace Seffeng\Basics\Base;
 
-use Seffeng\Basics\Helpers\Arr;
 use Illuminate\Support\Str;
+use Seffeng\LaravelHelpers\Helpers\Arr;
 
 /**
  *
@@ -87,6 +87,12 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     protected $perPage = 10;
 
     /**
+     *
+     * @var integer
+     */
+    protected $page = 1;
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -156,12 +162,14 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     /**
      *
      * @author zxf
-     * @date    2019年11月06日
-     * @param array $with
+     * @date    2020年6月7日
+     * @param  array $with
+     * @return \Seffeng\Basics\Base\FormRequest
      */
     public function setWith(array $with)
     {
         $this->with = $with;
+        return $this;
     }
 
     /**
@@ -178,12 +186,14 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     /**
      *
      * @author zxf
-     * @date   2020年3月23日
-     * @param array|string $orderBy
+     * @date    2020年6月7日
+     * @param  array|string $orderBy
+     * @return \Seffeng\Basics\Base\FormRequest
      */
     public function setOrderBy($orderBy)
     {
         $this->orderBy = $orderBy;
+        return $this;
     }
 
     /**
@@ -375,11 +385,48 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     /**
      *
      * @author zxf
+     * @date    2020年6月7日
+     * @param  int $perPage
+     * @return \Seffeng\Basics\Base\FormRequest
+     */
+    public function setPerPage(int $perPage)
+    {
+        $this->perPage = $perPage;
+        return $this;
+    }
+
+    /**
+     *
+     * @author zxf
      * @date    2020年05月04日
      * @return number
      */
     public function getPerPage()
     {
         return $this->perPage;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年6月7日
+     * @param  int $page
+     * @return \Seffeng\Basics\Base\FormRequest
+     */
+    public function setPage(int $page)
+    {
+        $this->page = $page;
+        return $this;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年6月7日
+     * @return number
+     */
+    public function getPage()
+    {
+        return $this->page;
     }
 }

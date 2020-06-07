@@ -77,7 +77,7 @@ class Handler extends ExceptionHandler
         $e = $this->prepareException($e);
 
         if (($this->asJson || $request->expectsJson()) && $this->isHttpException($e) && in_array($e->getStatusCode(), $this->errorClass::fetchItems())) {
-            return new JsonResponse($this->errorClass::responseError($this->errorClass::getError($e->getStatusCode()), ['message' => $e->getMessage()], $e->getStatusCode()));
+            return new JsonResponse($this->errorClass::responseError($this->errorClass::getError($e->getStatusCode()), $e->getMessage() ? ['message' => $e->getMessage()] : [], $e->getStatusCode()));
         } else {
             return parent::render($request, $e);
         }
