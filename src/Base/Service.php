@@ -11,6 +11,12 @@ class Service
 {
     /**
      *
+     * @var array
+     */
+    protected $fillable = [];
+
+    /**
+     *
      * @author zxf
      * @date    2019年11月06日
      * @param  LengthAwarePaginator $paginator
@@ -144,5 +150,29 @@ class Service
         }
 
         return $code;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年6月8日
+     * @return array
+     */
+    public function getFillable()
+    {
+        return $this->fillable;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年6月8日
+     * @param  array $fillable
+     * @return \Seffeng\Basics\Base\Service
+     */
+    public function setFillable(array $fillable = [])
+    {
+        $this->fillable = $fillable;
+        return $this;
     }
 }

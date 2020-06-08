@@ -91,6 +91,28 @@ class Model extends \Illuminate\Database\Eloquent\Model
     /**
      *
      * @author zxf
+     * @date    2020年6月8日
+     * @param  array $diffAttribute
+     * @return array
+     */
+    public function diffChanges(array $diffAttribute = null)
+    {
+        $changes = [];
+        is_null($diffAttribute) && $diffAttribute = array_keys($this->getAttributes());
+        if ($diffAttribute) foreach ($diffAttribute as $attribute) {
+            $value    = $this->getAttribute($attribute);
+            $oldValue = $this->getOriginal($attribute);
+            if ($oldValue != $value) {
+                $changes[$attribute][] = $oldValue;
+                $changes[$attribute][] = $value;
+            }
+        }
+        return $changes;
+    }
+
+    /**
+     *
+     * @author zxf
      * @date    2019年11月06日
      */
     public function loadDefaultValue()
