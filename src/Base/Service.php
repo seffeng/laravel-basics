@@ -175,4 +175,21 @@ class Service
         $this->fillable = $fillable;
         return $this;
     }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年6月8日
+     * @param  array $item
+     * @return array
+     */
+    public function filterByFillable(array $item)
+    {
+        if ($this->getFillable()) foreach ($item as $key => $val) {
+            if (!in_array($key, $this->getFillable())) {
+                unset($item[$key], $val);
+            }
+        }
+        return $item;
+    }
 }
