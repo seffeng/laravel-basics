@@ -5,7 +5,7 @@
  */
 namespace Seffeng\Basics\Constants;
 
-use Illuminate\Support\Arr;
+use Seffeng\LaravelHelpers\Helpers\Arr;
 
 /**
  * 错误常量
