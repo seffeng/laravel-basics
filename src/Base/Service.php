@@ -6,6 +6,7 @@
 namespace Seffeng\Basics\Base;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Seffeng\LaravelHelpers\Helpers\Str;
 
 class Service
 {
@@ -82,17 +83,7 @@ class Service
      */
     public function generateChatCode(int $length, bool $diff = false)
     {
-        $letters = 'bcdfghjklmnpqrstvwxyz';
-        $letterUpper = 'BCDFGHJKLMNPQRSTVWXYZ';
-        $vowels = 'aeiou';
-        $vowelUpper = 'AEIOU';
-
-        if ($diff) {
-            $letters .= $letterUpper;
-            $vowels .= $vowelUpper;
-        }
-
-        return $this->generateAlgorithm($letters, $vowels, $length);
+        return Str::generateChatCode($length, $diff);
     }
 
     /**
@@ -104,10 +95,7 @@ class Service
      */
     public function generateNumberCode(int $length)
     {
-        $letters = '24680';
-        $vowels = '13579';
-
-        return $this->generateAlgorithm($letters, $vowels, $length);
+        return Str::generateNumberCode($length);
     }
 
     /**
@@ -120,36 +108,7 @@ class Service
      */
     public function generateStringCode(int $length, bool $diff = false)
     {
-        $letters = 'abcdefghijklmnopqrstuvwxyz';
-        $letterUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $vowels = '1234567890';
-
-        $diff && $letters .= $letterUpper;
-
-        return $this->generateAlgorithm($letters, $vowels, $length);
-    }
-
-    /**
-     *
-     * @author zxf
-     * @date   2020年4月30日
-     * @param  int $length
-     * @return string
-     */
-    protected function generateAlgorithm(string $letters, string $vowels, int $length)
-    {
-        $vowelsLength = strlen($vowels) - 1;
-        $lettersLength = strlen($letters) - 1;
-        $code = '';
-        for ($i = 0; $i < $length; ++$i) {
-            if ($i % 2 && mt_rand(0, 10) > 2 || !($i % 2) && mt_rand(0, 10) > 9) {
-                $code .= $vowels[mt_rand(0, $vowelsLength)];
-            } else {
-                $code .= $letters[mt_rand(0, $lettersLength)];
-            }
-        }
-
-        return $code;
+        return Str::generateStringCode($length, $diff);
     }
 
     /**
