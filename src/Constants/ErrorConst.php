@@ -102,7 +102,7 @@ class ErrorConst
      *
      * @author zxf
      * @date    2019年10月28日
-     * @param array $data
+     * @param mixed $data
      * @param string $message
      * @return array
      */
@@ -110,7 +110,7 @@ class ErrorConst
     {
         return [
             'status' => 'success',
-            'data' => (is_array($data) && count($data) === 0) ? new \stdClass() : $data,
+            'data' => (is_null($data) || (is_array($data) && count($data) === 0)) ? new \stdClass() : $data,
             'message' => $message,
         ];
     }
@@ -120,7 +120,7 @@ class ErrorConst
      * @author zxf
      * @date    2019年10月28日
      * @param  string $message
-     * @param  array $data
+     * @param  mixed $data
      * @param  int $code
      * @return array
      */
@@ -129,7 +129,7 @@ class ErrorConst
         return [
             'status' => 'error',
             'code' => is_null($code) ? static::DEFAULT : $code,
-            'data' => (is_array($data) && count($data) === 0) ? new \stdClass() : $data,
+            'data' => (is_null($data) || (is_array($data) && count($data) === 0)) ? new \stdClass() : $data,
             'message' => $message,
         ];
     }
