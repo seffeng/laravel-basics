@@ -10,10 +10,24 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Seffeng\Basics\Constants\ErrorConst;
+use Illuminate\Support\Facades\Request;
+use Seffeng\LaravelHelpers\Helpers\Xml;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * 默认接口返回格式[json|xml]
+     * @var string
+     */
+    protected $format = 'json';
+
+    /**
+     * 接口返回支持格式
+     * @var array
+     */
+    protected $allowFormat = ['xml', 'json'];
 
     /**
      *
@@ -32,7 +46,12 @@ class Controller extends BaseController
      */
     public function responseSuccess($data = [], string $message = 'success', array $headers = [])
     {
-        return response()->json($this->errorClass::responseSuccess($data, $message), 200, $headers);
+        $data = $this->errorClass::responseSuccess($data, $message);
+        if ($this->getIsResponseXml()) {
+            return response(Xml::toXml($data), 200, $headers)->withHeaders(['Content-Type' => 'text/xml']);
+        } else {
+            return response()->json($data, 200, $headers);
+        }
     }
 
     /**
@@ -47,7 +66,12 @@ class Controller extends BaseController
      */
     public function responseError(string $message, $data = [], int $code = null, array $headers = [])
     {
-        return response()->json($this->errorClass::responseError($message, $data, $code), 200, $headers);
+        $data = $this->errorClass::responseError($message, $data, $code);
+        if ($this->getIsResponseXml()) {
+            return response(Xml::toXml($data), 200, $headers)->withHeaders(['Content-Type' => 'text/xml']);
+        } else {
+            return response()->json($data, 200, $headers);
+        }
     }
 
     /**
@@ -73,13 +97,43 @@ class Controller extends BaseController
      */
     public function responseException($e)
     {
-        return response()->json($this->errorClass::responseError($this->errorClass::getError(),
+        $data = $this->errorClass::responseError($this->errorClass::getError(),
             config('app.debug') ? [
                 'message' => $e->getMessage(),
                 'code' => $e->getCode(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-            ] : [])
-        );
+            ] : []);
+        if ($this->getIsResponseXml()) {
+            return response(Xml::toXml($data), 200, [])->withHeaders(['Content-Type' => 'text/xml']);
+        } else {
+            return response()->json($data);
+        }
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年6月20日
+     * @return string
+     */
+    protected function getResponseFormat()
+    {
+        $format = strtolower(Request::header('Format'));
+        if (!in_array($format, $this->allowFormat)) {
+            $format = $this->format;
+        }
+        return $format;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年6月20日
+     * @return boolean
+     */
+    protected function getIsResponseXml()
+    {
+        return $this->getResponseFormat() === 'xml';
     }
 }
