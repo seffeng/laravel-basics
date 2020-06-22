@@ -7,8 +7,8 @@ namespace Seffeng\Basics\Exceptions;
 
 use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\JsonResponse;
 use Seffeng\Basics\Constants\ErrorConst;
+use Seffeng\Basics\Base\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -77,7 +77,9 @@ class Handler extends ExceptionHandler
         $e = $this->prepareException($e);
 
         if (($this->asJson || $request->expectsJson()) && $this->isHttpException($e) && in_array($e->getStatusCode(), $this->errorClass::fetchItems())) {
-            return new JsonResponse($this->errorClass::responseError($this->errorClass::getError($e->getStatusCode()), $e->getMessage() ? ['message' => $e->getMessage()] : [], $e->getStatusCode()));
+            $data = $this->errorClass::responseError($this->errorClass::getError($e->getStatusCode()), $e->getMessage() ? ['message' => $e->getMessage()] : [], $e->getStatusCode());
+            $response = new Response();
+            return $response->setContent($data)->send();
         } else {
             return parent::render($request, $e);
         }
