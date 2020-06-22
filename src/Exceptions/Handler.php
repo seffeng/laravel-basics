@@ -76,8 +76,18 @@ class Handler extends ExceptionHandler
     {
         $e = $this->prepareException($e);
 
-        if (($this->asJson || $request->expectsJson()) && $this->isHttpException($e) && in_array($e->getStatusCode(), $this->errorClass::fetchItems())) {
-            $data = $this->errorClass::responseError($this->errorClass::getError($e->getStatusCode()), $e->getMessage() ? ['message' => $e->getMessage()] : [], $e->getStatusCode());
+        if ($this->asJson || $request->expectsJson()) {
+            $exception = (config('app.debug') && $e->getMessage()) ? [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ] : [];
+            if ($this->isHttpException($e) && in_array($e->getStatusCode(), $this->errorClass::fetchItems())) {
+                $data = $this->errorClass::responseError($this->errorClass::getError($e->getStatusCode()), $exception, $e->getStatusCode());
+            } else {
+                $data = $this->errorClass::responseError($this->errorClass::getError(), $exception);
+            }
             $response = new Response();
             return $response->setContent($data)->send();
         } else {
