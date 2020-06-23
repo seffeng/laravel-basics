@@ -63,7 +63,7 @@ class Controller extends BaseController
      * @param  array $headers
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
-    public function responseDownload($data, string $fileName, array $headers)
+    public function responseDownload($data, string $fileName, array $headers = [])
     {
         return response()->streamDownload(function() use ($data) { echo $data; }, $fileName, $headers);
     }
