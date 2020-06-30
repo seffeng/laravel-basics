@@ -5,8 +5,6 @@
  */
 namespace Seffeng\Basics\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
-
 /**
  * 手机号验证
  * @author zxf
