@@ -3,7 +3,7 @@
 ### 安装
 
 ```shell
-# laravel7
+# laravel7、laravel8
 $ composer require seffeng/laravel-basics
 
 # laravel6
