@@ -29,12 +29,13 @@ class Controller extends BaseController
      * @param  array $data
      * @param  string $message
      * @param  array $headers
+     * @param  integer $code
      * @return \Illuminate\Http\JsonResponse
      */
-    public function responseSuccess($data = [], string $message = 'success', array $headers = [])
+    public function responseSuccess($data = [], string $message = 'success', array $headers = [], int $code = null)
     {
         $response = new Response();
-        $data = $this->errorClass::responseSuccess($data, $message);
+        $data = $this->errorClass::responseSuccess($data, $message, $code);
         return $response->setContent($data)->setHeaders($headers)->send();
     }
 

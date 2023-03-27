@@ -8,9 +8,9 @@ namespace Seffeng\Basics\Helpers;
 /**
  *
  * @author zxf
- * @see \Seffeng\LaravelHelpers\Helpers\UnsetArrayValue
+ * @see \Seffeng\ArrHelper\UnsetArrayValue
  */
-class UnsetArrayValue extends \Seffeng\LaravelHelpers\Helpers\UnsetArrayValue
+class UnsetArrayValue extends \Seffeng\ArrHelper\UnsetArrayValue
 {
 
 }

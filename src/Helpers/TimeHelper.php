@@ -8,9 +8,9 @@ namespace Seffeng\Basics\Helpers;
 /**
  *
  * @author zxf
- * @see \Seffeng\LaravelHelpers\Helpers\TimeHelper
+ * @see \Seffeng\TimeHelper\Time
  */
-class TimeHelper extends \Seffeng\LaravelHelpers\Helpers\TimeHelper
+class TimeHelper extends \Seffeng\TimeHelper\Time
 {
 
 }

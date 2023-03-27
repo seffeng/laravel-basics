@@ -7,8 +7,9 @@ namespace Seffeng\Basics\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Seffeng\Basics\Constants\ErrorConst;
 use Seffeng\Basics\Base\Response;
+use Seffeng\Basics\Constants\ErrorConst;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -74,6 +75,9 @@ class Handler extends ExceptionHandler
      */
     public function renderException($request, $e)
     {
+        /**
+         * @var \Exception|HttpException $e
+         */
         $e = $this->prepareException($e);
 
         if ($this->asJson || $request->expectsJson()) {

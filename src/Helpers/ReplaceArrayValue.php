@@ -8,9 +8,9 @@ namespace Seffeng\Basics\Helpers;
 /**
  *
  * @author zxf
- * @see \Seffeng\LaravelHelpers\Helpers\ReplaceArrayValue
+ * @see \Seffeng\ArrHelper\ReplaceArrayValue
  */
-class ReplaceArrayValue extends \Seffeng\LaravelHelpers\Helpers\ReplaceArrayValue
+class ReplaceArrayValue extends \Seffeng\ArrHelper\ReplaceArrayValue
 {
 
 }
