@@ -542,6 +542,19 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     }
 
     /**
+     * 跳过验证
+     *
+     * @author zxf
+     * @date   2023-03-28
+     * @return static
+     */
+    public function skipValidator()
+    {
+        $this->isPass = true;
+        return $this;
+    }
+
+    /**
      * orderBy=-num；代表 num 降序
      * orderBy=-num；代表 num 升序
      * orderBy=-num,sort；代表 num 降序，sort 升序
