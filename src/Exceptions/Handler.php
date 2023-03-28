@@ -9,6 +9,7 @@ use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Seffeng\Basics\Constants\ErrorConst;
 use Seffeng\Basics\Base\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -74,6 +75,9 @@ class Handler extends ExceptionHandler
      */
     public function renderException($request, $e)
     {
+        /**
+         * @var Throwable|HttpException $e
+         */
         $e = $this->prepareException($e);
 
         if ($this->asJson || $request->expectsJson()) {

@@ -52,6 +52,12 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     protected $fillItems = [];
 
     /**
+     * SQL Query Builder: $query->select($columns)...
+     * @var array
+     */
+    protected $columns = ['*'];
+
+    /**
      *
      * @var array
      */
@@ -488,6 +494,32 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     public function getPage()
     {
         return $this->page;
+    }
+
+    /**
+     * SQL 查询字段
+     *
+     * @author zxf
+     * @date   2023-03-28
+     * @param array $columns
+     * @return static
+     */
+    public function setColumns(array $columns)
+    {
+        $this->columns = $columns;
+        return $this;
+    }
+
+    /**
+     * SQL 查询字段
+     *
+     * @author zxf
+     * @date   2023-03-28
+     * @return array
+     */
+    public function getColumns()
+    {
+        return $this->columns;
     }
 
     /**
