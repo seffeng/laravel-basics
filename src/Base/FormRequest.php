@@ -372,7 +372,7 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
      *
      * @author zxf
      * @date    2019年11月06日
-     * @param  string|int $key
+     * @param  string|integer $key
      * @param  mixed $defalut
      * @return mixed
      */
@@ -452,7 +452,7 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
      *
      * @author zxf
      * @date    2020年6月7日
-     * @param  int $perPage
+     * @param  integer $perPage
      * @return static
      */
     public function setPerPage(int $perPage)
@@ -465,7 +465,7 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
      *
      * @author zxf
      * @date    2020年05月04日
-     * @return number
+     * @return integer
      */
     public function getPerPage()
     {
@@ -476,7 +476,7 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
      *
      * @author zxf
      * @date    2020年6月7日
-     * @param  int $page
+     * @param  integer $page
      * @return static
      */
     public function setPage(int $page)
@@ -489,7 +489,7 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
      *
      * @author zxf
      * @date    2020年6月7日
-     * @return number
+     * @return integer
      */
     public function getPage()
     {
