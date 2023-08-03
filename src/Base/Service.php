@@ -5,7 +5,7 @@
  */
 namespace Seffeng\Basics\Base;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Seffeng\LaravelHelpers\Helpers\Str;
 
 class Service
