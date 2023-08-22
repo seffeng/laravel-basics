@@ -5,6 +5,7 @@
  */
 namespace Seffeng\Basics\Base;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -88,6 +89,8 @@ class Controller extends BaseController
             'file' => $e->getFile(),
             'line' => $e->getLine(),
         ] : []);
+
+        Log::error($e->getMessage(), ['code' => $e->getCode(), 'file' => $e->getFile(), 'line' => $e->getLine()]);
         return $response->setContent($data)->send();
     }
 }

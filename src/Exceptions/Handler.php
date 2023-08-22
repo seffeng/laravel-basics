@@ -101,7 +101,7 @@ class Handler extends ExceptionHandler
             }
 
             $response = new Response();
-            return $response->setContent($data)->send();
+            return $response->setContent($data)->setHeaders($this->errorClass::mergeHeaders())->send();
         } else {
             return parent::render($request, $e);
         }
