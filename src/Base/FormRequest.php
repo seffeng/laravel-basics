@@ -5,6 +5,7 @@
  */
 namespace Seffeng\Basics\Base;
 
+use Seffeng\Basics\Constants\FormatConst;
 use Seffeng\Basics\Constants\TypeConst;
 use Seffeng\LaravelHelpers\Helpers\Str;
 use Seffeng\LaravelHelpers\Helpers\Arr;
@@ -212,6 +213,21 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     /**
      *
      * @author zxf
+     * @date   2023-11-06
+     * @param  array $with
+     * @return static
+     */
+    public function addWith(array $with)
+    {
+        if (is_array($this->with)) {
+            $this->with = Arr::merge($this->with, $with);
+        }
+        return $this;
+    }
+
+    /**
+     *
+     * @author zxf
      * @date    2019年11月06日
      * @return array
      */
@@ -236,6 +252,21 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     /**
      *
      * @author zxf
+     * @date   2023-11-06
+     * @param  array $orderBy
+     * @return static
+     */
+    public function addOrderBy(array $orderBy)
+    {
+        if (is_array($this->orderBy)) {
+            $this->orderBy = Arr::merge($this->orderBy, $orderBy);
+        }
+        return $this;
+    }
+
+    /**
+     *
+     * @author zxf
      * @date   2020年3月23日
      * @return string|array
      */
@@ -254,6 +285,21 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     public function setGroupBy($groupBy)
     {
         $this->groupBy = $groupBy;
+        return $this;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2023-11-06
+     * @param  array $groupBy
+     * @return static
+     */
+    public function addGroupBy(array $groupBy)
+    {
+        if (is_array($this->groupBy)) {
+            $this->groupBy = Arr::merge($this->groupBy, $groupBy);
+        }
         return $this;
     }
 
@@ -511,6 +557,21 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     }
 
     /**
+     *
+     * @author zxf
+     * @date   2023-11-06
+     * @param  array $columns
+     * @return static
+     */
+    public function addColumns(array $columns)
+    {
+        if (is_array($this->columns)) {
+            $this->columns = Arr::merge($this->columns, $columns);
+        }
+        return $this;
+    }
+
+    /**
      * SQL 查询字段
      *
      * @author zxf
@@ -586,6 +647,52 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
             count($orderBy) > 0 && $this->setOrderBy($orderBy);
         }
         return $this;
+    }
+
+    /**
+     * 根据LastId分页
+     *
+     * @author zxf
+     * @date   2023-11-06
+     * @return void
+     */
+    public function pagingByLastId()
+    {
+        $lastId = $this->getFillItems('lastId');
+        $this->setFillItem('lastId', null);
+        $this->setIsLastId();
+        if ($lastId) {
+            $orderItems = Str::toArray($lastId, ',', ' ');
+            if ($orderItems) foreach ($orderItems as $order) {
+                $orderBy = explode(FormatConst::LASTID_DELIMITER, $order);
+                $this->setFillItem('lastId', Arr::get($orderBy, '1'));
+                break;
+            }
+        }
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2023-11-06
+     * @param  boolean $isLastId
+     * @return static
+     */
+    public function setIsLastId(bool $isLastId = true)
+    {
+        $this->setFillItem('isLastId', $isLastId);
+        return $this;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2023-11-06
+     * @return boolean
+     */
+    public function getIsLastId()
+    {
+        return $this->getFillItems('isLastId') === true;
     }
 
     /**
