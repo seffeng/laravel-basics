@@ -592,6 +592,7 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
     public function loadVariables()
     {
         $this->variables = [
+            'columns'   => $this->getColumns(),
             'fillItems' => $this->getFillItems(),
             'groupBy'   => $this->getGroupBy(),
             'orderBy'   => $this->getOrderBy(),
