@@ -618,7 +618,7 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
 
     /**
      * orderBy=-num；代表 num 降序
-     * orderBy=-num；代表 num 升序
+     * orderBy=num；代表 num 升序
      * orderBy=-num,sort；代表 num 降序，sort 升序
      * @author zxf
      * @date   2021年6月21日
