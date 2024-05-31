@@ -62,7 +62,7 @@ class Service
      * @param integer $limit      展示的页面数量
      * @return array
      */
-    public function getPageOptions(int $totalCount, int $page = 1, int $perPage = 10, int $limit = 10)
+    public function getPaginateOptions(int $totalCount, int $page = 1, int $perPage = 10, int $limit = 10)
     {
         $pageCount = ceil($totalCount / $perPage);
         $page > $pageCount && $page = $pageCount;
