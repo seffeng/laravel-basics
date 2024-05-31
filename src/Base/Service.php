@@ -52,6 +52,44 @@ class Service
     }
 
     /**
+     * 获取页码，返回分页页码列表
+     *
+     * @author zxf
+     * @date   2024-05-31
+     * @param integer $totalCount 总数量
+     * @param integer $page       当前页
+     * @param integer $perPage    每页数量
+     * @param integer $limit      展示的页面数量
+     * @return array
+     */
+    public function getPaginateOptions(int $totalCount, int $page = 1, int $perPage = 10, int $limit = 10)
+    {
+        $pageCount = ceil($totalCount / $perPage);
+        $page > $pageCount && $page = $pageCount;
+        $page < 1 && $page = 1;
+
+        $ceil = ceil($limit / 2);
+        $startPage = 1;
+        if ($page - $ceil > 0) {
+            if ($pageCount - $page > $ceil) {
+                $startPage = $page - $ceil;
+            } else {
+                $startPage = $pageCount - $limit + 1;
+                $startPage < 1 && $startPage = 1;
+            }
+        }
+
+        $options = [];
+        $endPage = $startPage + $limit - 1;
+        $endPage > $pageCount && $endPage = $pageCount;
+        for ($i = $startPage; $i <= $endPage; $i++) {
+            $options[] = $i;
+        }
+
+        return $options;
+    }
+
+    /**
      *
      * @author zxf
      * @date    2019年11月15日
