@@ -239,6 +239,6 @@ class Service
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Expires: 0');
         header('Access-Control-Expose-Headers: Download-Filename');
-        header('Download-Filename: aaaaa-' . $fileName);
+        header('Download-Filename: ' . $fileName);
     }
 }
