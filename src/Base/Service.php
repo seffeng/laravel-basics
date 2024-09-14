@@ -6,6 +6,7 @@
 namespace Seffeng\Basics\Base;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Seffeng\LaravelHelpers\Helpers\Arr;
 use Seffeng\LaravelHelpers\Helpers\Str;
 
 class Service
@@ -213,5 +214,31 @@ class Service
             }
         }
         return $data;
+    }
+
+    /**
+     * 流下载
+     *
+     * @author zxf
+     * @date   2023-08-08
+     * @param string $fileName
+     * @return void
+     */
+    protected function streamDownload(string $fileName)
+    {
+        $fileName = urlencode($fileName);
+        $pathinfo = pathinfo($fileName);
+        header('Content-Description: File Transfer');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        if (strtolower(Arr::get($pathinfo, 'extension', '')) === 'xlsx') {
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        } else {
+            header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        }
+        header('Content-Transfer-Encoding: binary');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
+        header('Access-Control-Expose-Headers: Download-Filename');
+        header('Download-Filename: aaaaa-' . $fileName);
     }
 }
