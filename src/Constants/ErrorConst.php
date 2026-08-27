@@ -107,7 +107,7 @@ class ErrorConst
      * @param  integer $code
      * @return array
      */
-    public static function responseSuccess($data = [], string $message = 'success', int $code = null)
+    public static function responseSuccess($data = [], string $message = 'success', ?int $code = null)
     {
         return [
             'status' => 'success',

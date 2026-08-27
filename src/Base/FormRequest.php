@@ -279,7 +279,7 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
      *
      * @author zxf
      * @date   2020年7月22日
-     * @param  array|string $orderBy
+     * @param  array|string $groupBy
      * @return static
      */
     public function setGroupBy($groupBy)
@@ -632,7 +632,7 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
             $orderBy = [];
             if ($items) {
                 foreach ($items as $item) {
-                    if ($item['0'] === '-') {
+                    if ($item[0] === '-') {
                         $key = $this->replaceSortKey(substr($item, 1));
                         $value = TypeConst::ORDERBY_DESC;
                     } else {
@@ -701,9 +701,9 @@ class FormRequest extends \Illuminate\Foundation\Http\FormRequest
      * @author zxf
      * @date   2020年12月7日
      * @param string $key
-     * @return boolean
+     * @return string|boolean
      */
-    protected function replaceSortKey(string $key = null)
+    protected function replaceSortKey(?string $key = null)
     {
         return (!is_null($key) && array_key_exists($key, $this->fetchSortKeyItems())) ? Arr::get($this->fetchSortKeyItems(), $key) : false;
     }

@@ -33,7 +33,7 @@ class Controller extends BaseController
      * @param  integer $code
      * @return \Illuminate\Http\JsonResponse
      */
-    public function responseSuccess($data = [], string $message = 'success', array $headers = [], int $code = null)
+    public function responseSuccess($data = [], string $message = 'success', array $headers = [], ?int $code = null)
     {
         $response = new Response();
         $data = $this->errorClass::responseSuccess($data, $message, $code);
@@ -50,7 +50,7 @@ class Controller extends BaseController
      * @param  array $headers
      * @return \Illuminate\Http\JsonResponse
      */
-    public function responseError(string $message, $data = [], int $code = null, array $headers = [])
+    public function responseError(string $message, $data = [], ?int $code = null, array $headers = [])
     {
         $response = new Response();
         $data = $this->errorClass::responseError($message, $data, $code);

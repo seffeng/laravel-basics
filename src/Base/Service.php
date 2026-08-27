@@ -96,7 +96,7 @@ class Service
      * @date    2019年11月15日
      * @param string $name
      */
-    public function openQueryLog(string $name = null)
+    public function openQueryLog(?string $name = null)
     {
         Model::openQueryLog($name);
     }

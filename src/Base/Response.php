@@ -120,7 +120,7 @@ class Response
      */
     public function setStatus(int $status)
     {
-        $this->status;
+        $this->status = $status;
         return $this;
     }
 

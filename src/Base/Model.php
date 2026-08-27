@@ -107,7 +107,7 @@ class Model extends \Illuminate\Database\Eloquent\Model
      * @param  array $diffAttribute
      * @return array
      */
-    public function diffChanges(array $diffAttribute = null)
+    public function diffChanges(?array $diffAttribute = null)
     {
         $changes = [];
         is_null($diffAttribute) && $diffAttribute = array_keys($this->getAttributes());
@@ -138,7 +138,7 @@ class Model extends \Illuminate\Database\Eloquent\Model
      * @date    2019年11月15日
      * @param string $name
      */
-    public static function openQueryLog(string $name = null)
+    public static function openQueryLog(?string $name = null)
     {
         DB::connection($name)->enableQueryLog();
     }

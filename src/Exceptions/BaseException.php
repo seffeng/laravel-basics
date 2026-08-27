@@ -17,7 +17,7 @@ class BaseException extends \RuntimeException implements ExceptionInterface
      * @param integer $code
      * @param \Throwable|null $previous
      */
-    public function __construct(string $message = '', int $code = 0, \Throwable $previous = null)
+    public function __construct(string $message = '', int $code = 0, ?\Throwable $previous = null)
     {
         $message === '' && $message = $this->defaultMessage();
         parent::__construct($message, $code, $previous);
